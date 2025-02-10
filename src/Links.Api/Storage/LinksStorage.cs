@@ -7,7 +7,7 @@ namespace Links.Api.Storage;
 public class LinksStorage : DbContext {
     public DbSet<LinkEntity> Links { get; set; }
 
-    protected override void OnConfiguring( DbContextOptionsBuilder options ) => options.UseSqlite( $"Data Source=C:\\tmp\\links.db" );
+    protected override void OnConfiguring( DbContextOptionsBuilder options ) => options.UseSqlite( $"Data Source=/var/Links.Api/LinksStorage.db" );
 
     protected override void OnModelCreating( ModelBuilder mb ) {
         base.OnModelCreating( mb );
