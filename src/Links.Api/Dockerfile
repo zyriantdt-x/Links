@@ -12,8 +12,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["./Links.Api.csproj", "Links.Api/"]
 RUN dotnet restore "./Links.Api/Links.Api.csproj"
-COPY . .
 WORKDIR "/src/Links.Api"
+COPY . .
 RUN dotnet build "./Links.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
