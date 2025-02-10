@@ -1,0 +1,9 @@
+services:
+  api:
+    build:
+      context: ./src/Links.Api
+    volumes:
+      - data:/var/Links.Api
+volumes:
+  data:
+            
