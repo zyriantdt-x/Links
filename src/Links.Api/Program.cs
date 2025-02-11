@@ -14,6 +14,11 @@ builder.Services.AddControllers();
 
 WebApplication app = builder.Build();
 
+using( IServiceScope scope = app.Services.CreateScope() ) {
+    LinksStorage storage = scope.ServiceProvider.GetRequiredService<LinksStorage>();
+    storage.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
