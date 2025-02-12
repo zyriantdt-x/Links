@@ -4,6 +4,9 @@ services:
       context: ./src/Links.Api
     volumes:
       - data:/var/Links.Api
+  admin:
+    build:
+      context: ./src/Links.Admin
 volumes:
   data:
             
