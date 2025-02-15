@@ -1,7 +1,9 @@
 using Links.Api.Services;
 using Links.Api.Storage;
 using Links.Api.Storage.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,14 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<LinksStorage>();
 builder.Services.AddScoped<LinkService>();
 builder.Services.AddScoped<LinkRepository>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration);
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = options.DefaultPolicy;
+});
+
 builder.Services.AddControllers();
 
 WebApplication app = builder.Build();
