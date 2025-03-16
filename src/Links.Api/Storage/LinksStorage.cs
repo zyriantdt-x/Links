@@ -20,7 +20,7 @@ public class LinksStorage : DbContext {
         base.OnModelCreating( mb );
 
         mb.Entity<LinkEntity>().HasData(
-            new LinkEntity { Id = "1", CreatedDate = new DateTime(2025, 1, 1), OwnerId = "1", ShortId = "test", ForwardingUri = "https://google.com" }
+            new LinkEntity { Id = "1", CreatedDate = new DateTime( 2025, 1, 1 ), OwnerId = "1", ShortId = "test", ForwardingUri = "https://google.com" }
         );
     }
 }
