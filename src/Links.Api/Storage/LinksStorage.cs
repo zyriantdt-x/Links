@@ -1,13 +1,20 @@
-﻿using Links.Api.Storage.Entities;
+﻿using Links.Api.Options;
+using Links.Api.Storage.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Links.Api.Storage;
 
 public class LinksStorage : DbContext {
+    private readonly StorageOptions options;
+
     public DbSet<LinkEntity> Links { get; set; }
 
-    protected override void OnConfiguring( DbContextOptionsBuilder options ) => options.UseSqlite( $"Data Source=/var/Links.Api/LinksStorage.db" );
+    public LinksStorage( IOptions<StorageOptions> options ) {
+        this.options = options.Value;
+    }
+
+    protected override void OnConfiguring( DbContextOptionsBuilder options ) => options.UseSqlite( this.options.ConnectionString );
 
     protected override void OnModelCreating( ModelBuilder mb ) {
         base.OnModelCreating( mb );

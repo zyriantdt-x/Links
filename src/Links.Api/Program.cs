@@ -1,9 +1,14 @@
+using Links.Api.Options;
 using Links.Api.Services;
 using Links.Api.Storage;
 using Links.Api.Storage.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+// options
+builder.Services.AddOptions<StorageOptions>()
+    .Bind( builder.Configuration.GetSection( nameof( StorageOptions ) ) );
 
 // Add services to the container.
 
