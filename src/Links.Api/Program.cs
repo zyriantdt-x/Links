@@ -6,30 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// options
+// add options
 builder.Services.AddOptions<StorageOptions>()
     .Bind( builder.Configuration.GetSection( nameof( StorageOptions ) ) );
 
-// Add services to the container.
-
+// add services
 builder.Services.AddDbContext<LinksStorage>();
 builder.Services.AddScoped<LinkService>();
 builder.Services.AddScoped<LinkRepository>();
 builder.Services.AddControllers();
 
+// build the host
 WebApplication app = builder.Build();
 
+// migrate the db - this should move to ci/cd
 using( IServiceScope scope = app.Services.CreateScope() ) {
     LinksStorage storage = scope.ServiceProvider.GetRequiredService<LinksStorage>();
     storage.Database.Migrate();
 }
 
-// Configure the HTTP request pipeline.
-
+// configure asp
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
